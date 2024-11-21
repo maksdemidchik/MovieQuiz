@@ -3,26 +3,25 @@ import UIKit
 final class MovieQuizViewController: UIViewController {
     // MARK: - Lifecycle
 
-    @IBOutlet weak var indexLabel: UILabel!
-    @IBOutlet weak var noButton: UIButton!
-    @IBOutlet weak var yesButton: UIButton!
-    @IBOutlet weak var textLabel: UILabel!
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var QuestionTitleLabel: UILabel!
+    @IBOutlet private weak var indexLabel: UILabel!
+    @IBOutlet private weak var noButton: UIButton!
+    @IBOutlet private weak var yesButton: UIButton!
+    @IBOutlet private weak var textLabel: UILabel!
+    @IBOutlet private weak var imageView: UIImageView!
+    @IBOutlet private weak var QuestionTitleLabel: UILabel!
     private var currentQuestionIndex = 0
     private var correctAnswers = 0
-    private var qustionsLabelText="Рейтинг этого фильма больше чем 6?"
-    struct QuizQuestion {
+    private struct QuizQuestion {
         let image: String
         let text: String
         let corretAnswer: Bool
     }
-    struct QuizStepViewModel {
+    private struct QuizStepViewModel {
       let image: UIImage
       let question: String
       let questionNumber: String
     }
-    struct QuizResultsViewModel {
+    private struct QuizResultsViewModel {
       let title: String
       let text: String
       let buttonText: String
@@ -48,14 +47,14 @@ final class MovieQuizViewController: UIViewController {
       textLabel.text = step.question
       indexLabel.text = step.questionNumber
     }
-    @IBAction func yesButtonClicked(_ sender: UIButton) {
+    @IBAction private func yesButtonClicked(_ sender: UIButton) {
         let myanswer=true
         yesButton.isEnabled=false
         noButton.isEnabled=false
         showAnswerResult(isCorrect: myanswer==questions[currentQuestionIndex].corretAnswer)
     }
     
-    @IBAction func noButtonClicked(_ sender: UIButton) {
+    @IBAction private func noButtonClicked(_ sender: UIButton) {
         let myanswer=false
         yesButton.isEnabled=false
         noButton.isEnabled=false
@@ -65,7 +64,6 @@ final class MovieQuizViewController: UIViewController {
         imageView.layer.borderColor=isCorrect ? UIColor.ypGreen.cgColor : UIColor.ypRed.cgColor
         imageView.layer.borderWidth = 8
         imageView.layer.masksToBounds = true
-        imageView.layer.cornerRadius=20
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.showNextQuestionOrResults()
             self.noButton.isEnabled=true
