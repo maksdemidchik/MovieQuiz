@@ -71,7 +71,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             self.yesButton.isEnabled=true
         }
         if isCorrect {
-            correctAnswers += 1
+            correctAnswer += 1
         }
     }
     private func showNextQuestionOrResults() {
@@ -79,8 +79,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         imageView.layer.borderWidth = 8
         imageView.layer.masksToBounds = true
         if currentQuestionIndex == questionsAmount - 1 {
-            statisticService.store(correct: correctAnswers, total: questionsAmount)
-            let text="Ваш результат: \(correctAnswers)/10\nКоличество сыгранных квизов:  \(statisticService.gamesCount)\nРекорд: \(statisticService.bestGame.correct)/\(statisticService.bestGame.total) (\(statisticService.bestGame.date.dateTimeString))\nСредняя точность: "+"\(String(format: "%.2f", statisticService.totalAccuracy))%" 
+            statisticService.store(correct: correctAnswer, total: questionsAmount)
+            let text="Ваш результат: \(correctAnswer)/10\nКоличество сыгранных квизов:  \(statisticService.gamesCount)\nРекорд: \(statisticService.bestGame.correct)/\(statisticService.bestGame.total) (\(statisticService.bestGame.date.dateTimeString))\nСредняя точность: "+"\(String(format: "%.2f", statisticService.totalAccuracy))%"
             let alertModel=AlertModel(title: "Этот раунд окончен!", message: text, buttonText:  "Сыграть ещё раз",completion:actionAlert)
             alertPresenter.showAlert(quiz: alertModel)
 
@@ -93,7 +93,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
     private func actionAlert(){
         self.currentQuestionIndex = 0
-        self.correctAnswers = 0
+        self.correctAnswer = 0
         questionfactory.requestNextQuestion()
     }
     func didReceiveNextQuestion(question: QuizQuestion?) {
