@@ -5,7 +5,6 @@
 //  Created by Maxim on 29.11.2024.
 //
 
-import Foundation
 import UIKit
 final class AlertPresenter{
     private weak var viewController:UIViewController?
