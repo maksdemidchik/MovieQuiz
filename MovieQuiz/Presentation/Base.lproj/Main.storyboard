@@ -108,10 +108,10 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="QuestionTitleLabel" destination="a2v-ka-2Wh" id="tlJ-ml-dHd"/>
                         <outlet property="imageView" destination="jNe-eB-P1b" id="nPO-Fs-npH"/>
                         <outlet property="indexLabel" destination="RxV-1L-aA7" id="sVI-Jh-4wJ"/>
                         <outlet property="noButton" destination="9Nx-VS-9ci" id="kGk-KZ-LtZ"/>
+                        <outlet property="questionTitleLabel" destination="a2v-ka-2Wh" id="vRh-JT-Btn"/>
                         <outlet property="textLabel" destination="VbZ-an-Yc3" id="vAM-3H-1PU"/>
                         <outlet property="yesButton" destination="0st-cs-0Wx" id="hUE-wb-jgL"/>
                     </connections>
