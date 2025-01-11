@@ -34,11 +34,11 @@ final class MovieQuizPresenter: QuestionFactoryDelegate  {
             questionFactory?.loadData()
             
         }
-    @IBAction func yesButtonClicked() {
+    func yesButtonClicked() {
          yesNoButtonAction(bool: true)
     }
     
-    @IBAction func noButtonClicked() {
+    func noButtonClicked() {
         yesNoButtonAction(bool: false)
     }
     
