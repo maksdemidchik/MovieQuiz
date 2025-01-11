@@ -101,7 +101,6 @@ class MovieQuizTestsUI: XCTestCase {
         XCTAssertFalse(alert.exists)
         XCTAssertTrue(indexLabel.label == "1/10")
     }
-    func testScreenCast() throws { }
     
     
     

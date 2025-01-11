@@ -13,7 +13,7 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var questionTitleLabel: UILabel!
     
-    var alertPresenter: AlertPresenter = AlertPresenter()
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,9 +25,6 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
         imageView.layer.masksToBounds = true
         presenter = MovieQuizPresenter(viewController: self)
         imageView.layer.cornerRadius=20
-        let alertPresenter = AlertPresenter()
-        alertPresenter.setViewController(self)
-        self.alertPresenter = alertPresenter
         showLoadingIndicator()
     }
     
@@ -37,18 +34,41 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
     }
     
     func showNetworkError(message: String) {
-        activityIndicator.isHidden=true
-        
-        let model = AlertModel(title: "Ошибка",
-                               message: message,
-                               buttonText: "Попробовать еще раз") { [weak self] in
-            guard let self = self else { return }
-            
-            self.presenter.restartGame()
+        hideLoadingIndicator()
+        let alert = UIAlertController(
+                    title: "Ошибка",
+                    message: message,
+                    preferredStyle: .alert)
+
+                    let action = UIAlertAction(title: "Попробовать ещё раз",
+                    style: .default) { [weak self] _ in
+                        guard let self = self else { return }
+
+                        self.presenter.restartGame()
         }
+
+        alert.addAction(action)
         
-        alertPresenter.showAlert(quiz: model)
+        self.present(alert, animated: true, completion: nil)
     }
+    
+    func showAlert(quiz result: QuizResultsViewModel){
+        let message = presenter.makeResultsMessage()
+        let alert = UIAlertController(
+                    title: result.title,
+                    message: message,
+                    preferredStyle: .alert)
+                    let action = UIAlertAction(title: result.buttonText, style: .default) { [weak self] _ in
+                        guard let self = self else { return }
+
+                        self.presenter.restartGame()
+                    }
+
+                alert.addAction(action)
+
+                self.present(alert, animated: true, completion: nil)
+    }
+    
     func show(quiz step: QuizStepViewModel) {
       imageView.image = step.image
       textLabel.text = step.question
@@ -81,6 +101,7 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
     func hideLoadingIndicator() {
             activityIndicator.isHidden = true
     }
+    
 }
 
 

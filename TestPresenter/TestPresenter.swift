@@ -12,6 +12,10 @@ import XCTest
 
 
 final class MovieQuizViewControllerMock: MovieQuizViewControllerProtocol {
+    func showAlert(quiz result: MovieQuiz.QuizResultsViewModel) {
+        
+    }
+    
     func showLoadingIndicator(){
         
     }
